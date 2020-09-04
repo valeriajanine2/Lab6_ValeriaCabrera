@@ -1,9 +1,14 @@
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -254,7 +259,47 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_abrirActionPerformed
 
     private void jmi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_guardarActionPerformed
-        // TODO add your handling code here:
+        
+        JFileChooser jfc = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt"); //instanciar filtro
+        jfc.addChoosableFileFilter(filtro);//aplicar filtro
+        int seleccion = jfc.showSaveDialog(this);//seleccion
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                File fichero = null;
+                if (jfc.getFileFilter().getDescription().equals("Archivos de Texto")) {//si el archivo es un txt
+                    fichero = new File(jfc.getSelectedFile().getPath() + ".txt");//el que le ponga el usuario
+                } else {
+                    fichero = jfc.getSelectedFile();
+                }
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                for (int i = 0; i < songs.size(); i++) { //recorrer el arraylist
+                    Canciones s = songs.get(i);
+                    bw.write(s.getNombre()+ "|" + s.getPuntuacion()+ "|" + s.getYear()+ "|" + s.getArtista() + "|" + s.getAlbum() + "|");//agregar al nuevo archivo cada nodo del arraylist
+                    bw.newLine();
+                }
+                bw.flush();
+                JOptionPane.showMessageDialog(this,"Se ha guardado el archivo");
+            } catch (IOException e) {
+            }
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+            }
+        }
+        Administracion ap = new Administracion("./Vehiculos.txt");
+        ap.cargarArchivo();
+        ap.setListaVehiculos(songs);
+        try {
+            ap.escribirArchivo();
+        } catch (IOException e) {
+        }
+
+        
     }//GEN-LAST:event_jmi_guardarActionPerformed
 
     private void bt_addCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addCMouseClicked
@@ -351,5 +396,6 @@ public class Main extends javax.swing.JFrame {
     private com.toedter.calendar.JYearChooser yc_date;
     // End of variables declaration//GEN-END:variables
 
+    ArrayList<Canciones> songs = new ArrayList();
     File fichero =null; 
 }
