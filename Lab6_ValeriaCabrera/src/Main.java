@@ -1,3 +1,10 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JFileChooser;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -221,7 +228,29 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirActionPerformed
-        // TODO add your handling code here:
+        
+        FileReader fr = null;
+        BufferedReader br = null;
+        try {
+            JFileChooser jfc = new JFileChooser("./"); //donde deseamos que aparezca
+            int seleccion = jfc.showOpenDialog(this);
+            if (seleccion==JFileChooser.APPROVE_OPTION) {
+                fichero = jfc.getSelectedFile();//apunta hacia el objeto seleccionado
+                fr = new FileReader(fichero);//apunta hacia el archivo
+                br = new BufferedReader(fr);//apunta hacia el fileReader
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            br.close();
+            fr.close();
+        } catch (IOException ex) {
+            
+        }
+        
+        
     }//GEN-LAST:event_jmi_abrirActionPerformed
 
     private void jmi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_guardarActionPerformed
@@ -321,4 +350,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField tf_nombre;
     private com.toedter.calendar.JYearChooser yc_date;
     // End of variables declaration//GEN-END:variables
+
+    File fichero =null; 
 }

@@ -15,14 +15,14 @@ public class Canciones {
     
     private String nombre;
     private int puntuacion;
-    private Date year;
+    private int year;
     private String artista;
     private String album;
 
     public Canciones() {
     }
 
-    public Canciones(String nombre, int puntuacion, Date year, String artista, String album) {
+    public Canciones(String nombre, int puntuacion, int year, String artista, String album) {
         this.nombre = nombre;
         this.puntuacion = puntuacion;
         this.year = year;
@@ -46,11 +46,11 @@ public class Canciones {
         this.puntuacion = puntuacion;
     }
 
-    public Date getYear() {
+    public int getYear() {
         return year;
     }
 
-    public void setYear(Date year) {
+    public void setYear(int year) {
         this.year = year;
     }
 
