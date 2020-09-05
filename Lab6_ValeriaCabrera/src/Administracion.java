@@ -24,11 +24,11 @@ public class Administracion {
         archivo = new File(path);
     }
 
-    public ArrayList<Canciones> getListaVehiculos() {
+    public ArrayList<Canciones> getListaCanciones() {
         return listaCanciones;
     }
 
-    public void setListaVehiculos(ArrayList<Canciones> listaVehiculos) {
+    public void setListaCanciones(ArrayList<Canciones> listaCanciones) {
         this.listaCanciones = listaCanciones;
     }
 

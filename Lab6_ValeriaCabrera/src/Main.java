@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -71,6 +73,20 @@ public class Main extends javax.swing.JFrame {
         bt_mod = new javax.swing.JButton();
         bt_eli = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
+        jd_modificar = new javax.swing.JDialog();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        tf_modnombre = new javax.swing.JTextField();
+        jLabel19 = new javax.swing.JLabel();
+        sp_modpuntuacion = new javax.swing.JSpinner();
+        jLabel20 = new javax.swing.JLabel();
+        yc_moddate = new com.toedter.calendar.JYearChooser();
+        jLabel21 = new javax.swing.JLabel();
+        tf_modartista = new javax.swing.JTextField();
+        jLabel22 = new javax.swing.JLabel();
+        tf_modalbum = new javax.swing.JTextField();
+        bt_modSong = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         bt_addC = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -150,6 +166,11 @@ public class Main extends javax.swing.JFrame {
         jd_playlist.getContentPane().add(cb_songs, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 160, 200, -1));
 
         bt_addsong.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Downloads\\1486485579-add-create-new-math-sign-plus_81190.png")); // NOI18N
+        bt_addsong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_addsongMouseClicked(evt);
+            }
+        });
         jd_playlist.getContentPane().add(bt_addsong, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, 40, 40));
 
         bt_addPlaylist.setBackground(new java.awt.Color(204, 0, 204));
@@ -179,15 +200,7 @@ public class Main extends javax.swing.JFrame {
             new String [] {
                 "Nombre", "Puntuacion", "Release Date", "Artista", "Álbum"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         jScrollPane2.setViewportView(tabla);
 
         jd_crud.getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, 570, 350));
@@ -196,12 +209,22 @@ public class Main extends javax.swing.JFrame {
         bt_mod.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bt_mod.setForeground(new java.awt.Color(255, 255, 255));
         bt_mod.setText("Modificar");
+        bt_mod.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modMouseClicked(evt);
+            }
+        });
         jd_crud.getContentPane().add(bt_mod, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 460, -1, -1));
 
         bt_eli.setBackground(new java.awt.Color(204, 0, 204));
         bt_eli.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         bt_eli.setForeground(new java.awt.Color(255, 255, 255));
         bt_eli.setText("Eliminar");
+        bt_eli.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_eliMouseClicked(evt);
+            }
+        });
         bt_eli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_eliActionPerformed(evt);
@@ -211,6 +234,53 @@ public class Main extends javax.swing.JFrame {
 
         jLabel18.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Downloads\\grandienttt.jpg")); // NOI18N
         jd_crud.getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 0, 820, 520));
+
+        jd_modificar.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel16.setText("Modificar Canción");
+        jd_modificar.getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 30, -1, -1));
+
+        jLabel17.setText("Nombre:");
+        jd_modificar.getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
+        jd_modificar.getContentPane().add(tf_modnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 90, 210, -1));
+
+        jLabel19.setText("Puntuación:");
+        jd_modificar.getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        sp_modpuntuacion.setModel(new javax.swing.SpinnerNumberModel(1, 1, 10, 1));
+        jd_modificar.getContentPane().add(sp_modpuntuacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 150, 40, -1));
+
+        jLabel20.setText("Release Date:");
+        jd_modificar.getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
+        jd_modificar.getContentPane().add(yc_moddate, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, -1, -1));
+
+        jLabel21.setText("Artista:");
+        jd_modificar.getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 260, -1, -1));
+        jd_modificar.getContentPane().add(tf_modartista, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 260, 210, -1));
+
+        jLabel22.setText("Álbum:");
+        jd_modificar.getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, -1, -1));
+        jd_modificar.getContentPane().add(tf_modalbum, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 320, 210, -1));
+
+        bt_modSong.setBackground(new java.awt.Color(204, 0, 204));
+        bt_modSong.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        bt_modSong.setForeground(new java.awt.Color(255, 255, 255));
+        bt_modSong.setText("Modificar");
+        bt_modSong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_modSongMouseClicked(evt);
+            }
+        });
+        bt_modSong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_modSongActionPerformed(evt);
+            }
+        });
+        jd_modificar.getContentPane().add(bt_modSong, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, -1, -1));
+
+        jLabel23.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Downloads\\grandienttt.jpg")); // NOI18N
+        jd_modificar.getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(-70, 0, 470, 520));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -292,16 +362,53 @@ public class Main extends javax.swing.JFrame {
 
     private void jmi_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirActionPerformed
         
+        Canciones c;
+        a.removeAll(a);
         FileReader fr = null;
         BufferedReader br = null;
         try {
             JFileChooser jfc = new JFileChooser("./"); //donde deseamos que aparezca
+            DefaultTableModel m = (DefaultTableModel) tabla.getModel();
+            
+            
+            
             int seleccion = jfc.showOpenDialog(this);
             if (seleccion==JFileChooser.APPROVE_OPTION) {
                 fichero = jfc.getSelectedFile();//apunta hacia el objeto seleccionado
                 fr = new FileReader(fichero);//apunta hacia el archivo
                 br = new BufferedReader(fr);//apunta hacia el fileReader
+                String linea;
+                ta_main.setText("");
+                while ((linea = br.readLine()) != null) {
+                    //agregar a la table
+                    String [] arr = linea.split("\\|");
+                    String nom=arr[0],art=arr[3],alb=arr[4];
+                    int p=Integer.parseInt(arr[1]),an=Integer.parseInt(arr[2]);
+                    Object[] newrow = {nom, arr[1], arr[2], art, alb};
+                    m.addRow(newrow);
+                    tabla.setModel(m);
+                    //agregar al text area
+                    ta_main.append(linea);//incluir al texto
+                    ta_main.append("\n");//incluir al texto
+                    //agregar al arraylist de todas las canciones
+                    c = (new Canciones(nom,p,an,art,alb));
+                    songs.add(c);
+                    //agregar al arraylist de las canciones de esa playlist
+                    a.add(c);
+                    //agregar al combobox
+                    DefaultComboBoxModel modelo = (DefaultComboBoxModel) cb_songs.getModel();
+                    modelo.addElement(c);
+                    
+                }
+                
+                
+                
+                Administracion ap = new Administracion(fichero.getPath());
+                ap.setListaCanciones(a);
+                
             }
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -319,39 +426,10 @@ public class Main extends javax.swing.JFrame {
     private void jmi_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_guardarActionPerformed
         
         JFileChooser jfc = new JFileChooser();
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt"); //instanciar filtro
-        jfc.addChoosableFileFilter(filtro);//aplicar filtro
-        int seleccion = jfc.showSaveDialog(this);//seleccion
-        FileWriter fw = null;
-        BufferedWriter bw = null;
-        if (seleccion == JFileChooser.APPROVE_OPTION) {
-            try {
-                File fichero = null;
-                if (jfc.getFileFilter().getDescription().equals("Archivos de Texto")) {//si el archivo es un txt
-                    fichero = new File(jfc.getSelectedFile().getPath() + ".txt");//el que le ponga el usuario
-                } else {
-                    fichero = jfc.getSelectedFile();
-                }
-                fw = new FileWriter(fichero);
-                bw = new BufferedWriter(fw);
-                for (int i = 0; i < songs.size(); i++) { //recorrer el arraylist
-                    Canciones s = songs.get(i);
-                    bw.write(s.getNombre()+ "|" + s.getPuntuacion()+ "|" + s.getYear()+ "|" + s.getArtista() + "|" + s.getAlbum() + "|");//agregar al nuevo archivo cada nodo del arraylist
-                    bw.newLine();
-                }
-                bw.flush();
-                JOptionPane.showMessageDialog(this,"Se ha guardado el archivo");
-            } catch (IOException e) {
-            }
-            try {
-                bw.close();
-                fw.close();
-            } catch (IOException ex) {
-            }
-        }
-        Administracion ap = new Administracion("./Vehiculos.txt");
+        
+        Administracion ap = new Administracion(fichero.getPath());
         ap.cargarArchivo();
-        ap.setListaVehiculos(songs);
+        ap.setListaCanciones(songs);
         try {
             ap.escribirArchivo();
         } catch (IOException e) {
@@ -406,10 +484,42 @@ public class Main extends javax.swing.JFrame {
         tf_artista.setText("");
         tf_album.setText("");
         sp_puntuacion.setValue(1);
+        jd_canciones.setVisible(false);
     }//GEN-LAST:event_bt_addSongMouseClicked
 
     private void bt_addPlaylistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addPlaylistMouseClicked
+        JFileChooser jfc = new JFileChooser("./");
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos de Texto", "txt"); //instanciar filtro
+        jfc.addChoosableFileFilter(filtro);//aplicar filtro
+        int seleccion = jfc.showSaveDialog(this);//seleccion
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        if (seleccion == JFileChooser.APPROVE_OPTION) {
+            try {
+                if (jfc.getFileFilter().getDescription().equals("Archivos de Texto")) {//si el archivo es un txt
+                    fichero = new File(jfc.getSelectedFile().getPath() + ".txt");//el que le ponga el usuario
+                } else {
+                    fichero = jfc.getSelectedFile();
+                }
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                for (int i = 0; i < a.size(); i++) { //recorrer el arraylist
+                    Canciones s = a.get(i);
+                    bw.write(s.getNombre()+ "|" + s.getPuntuacion()+ "|" + s.getYear()+ "|" + s.getArtista() + "|" + s.getAlbum() + "|");//agregar al nuevo archivo cada nodo del arraylist
+                    bw.newLine();
+                }
+                bw.flush();
+                JOptionPane.showMessageDialog(this,"Se ha guardado la playlist");
+            } catch (IOException e) {
+            }
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+            }
+        }
         
+        jd_playlist.setVisible(false);
     }//GEN-LAST:event_bt_addPlaylistMouseClicked
 
     private void bt_addSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_addSongActionPerformed
@@ -419,6 +529,144 @@ public class Main extends javax.swing.JFrame {
     private void bt_eliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_eliActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_bt_eliActionPerformed
+
+    private void bt_addsongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_addsongMouseClicked
+        
+        
+        
+        Canciones cancion = (Canciones)cb_songs.getSelectedItem();
+        a.add(cancion);
+        
+        jd_canciones.setVisible(false);
+        
+    }//GEN-LAST:event_bt_addsongMouseClicked
+
+    private void bt_eliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_eliMouseClicked
+
+        JFileChooser jfc = new JFileChooser();
+        FileWriter fw=null;
+        BufferedWriter bw=null;
+        
+        try {
+            Administracion ap = new Administracion(fichero.getPath());
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            if (tabla.getSelectedRow() >= 0) {
+                int p;
+                p = tabla.getSelectedRow();
+                ap.setListaCanciones(a);
+                System.out.println(ap.getListaCanciones());
+                ap.getListaCanciones().remove(p);
+                 System.out.println(ap.getListaCanciones());
+                try {
+                fw = new FileWriter(fichero);
+                bw = new BufferedWriter(fw);
+                for (int i = 0; i < ap.getListaCanciones().size(); i++) { //recorrer el arraylist
+                    Canciones s = ap.getListaCanciones().get(i);
+                    bw.write(s.getNombre()+ "|" + s.getPuntuacion()+ "|" + s.getYear()+ "|" + s.getArtista() + "|" + s.getAlbum() + "|");//agregar al nuevo archivo cada nodo del arraylist
+                    bw.newLine();
+                }
+                ap.escribirArchivo();
+            } catch (IOException e) {
+            }
+            try {
+                bw.close();
+                fw.close();
+            } catch (IOException ex) {
+            }
+                
+                ap.cargarArchivo();
+                modelo.removeRow(tabla.getSelectedRow());
+                tabla.setModel(modelo);
+                try {
+                    ap.escribirArchivo();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                JOptionPane.showMessageDialog(this, "Se ha eliminado el articulo de la lista");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+            modelo.removeRow(tabla.getSelectedRow());
+            tabla.setModel(modelo);
+        }
+        
+        
+    }//GEN-LAST:event_bt_eliMouseClicked
+
+    private void bt_modSongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modSongMouseClicked
+        
+        //aquiii
+        
+        
+        try {
+
+            DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+
+
+            if (tabla.getSelectedRow() >= 0) {
+                int p = tabla.getSelectedRow();
+
+                
+
+                //asignar lo modificado otra vez a la tabla
+                tabla.setValueAt(tf_modnombre.getText(), p, 0);
+                tabla.setValueAt(tf_modartista.getText(), p, 3);
+                tabla.setValueAt(tf_modalbum.getText(), p, 4);
+                tabla.setValueAt(sp_modpuntuacion.getValue(), p, 1);
+                tabla.setValueAt(yc_date.getValue(), p, 2);
+
+                tabla.setModel(modelo);
+
+                Administracion ap = new Administracion(fichero.getPath());
+                ap.setListaCanciones(a);
+                ap.cargarArchivo();
+                ap.getListaCanciones().get(p).setNombre(tf_modnombre.getText());
+                ap.getListaCanciones().get(p).setPuntuacion((Integer) sp_modpuntuacion.getValue());
+                ap.getListaCanciones().get(p).setPuntuacion((Integer) yc_date.getValue());
+                ap.getListaCanciones().get(p).setNombre(tf_modartista.getText());
+                ap.getListaCanciones().get(p).setNombre(tf_modalbum.getText());
+                try {
+                    ap.escribirArchivo();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+                JOptionPane.showMessageDialog(this, "Se ha modificado exitosamente");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            
+            
+        }
+
+        
+    }//GEN-LAST:event_bt_modSongMouseClicked
+
+    private void bt_modSongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_modSongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_modSongActionPerformed
+
+    private void bt_modMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_modMouseClicked
+        
+        jd_modificar.setModal(true); //no poder tocar a principal
+        jd_modificar.pack();//tamaño se acople a los controles preestablecidos
+        jd_modificar.setVisible(true);
+        
+        //capturar los elementos de cada columna de esa fila
+        String nom = (String) tabla.getValueAt(tabla.getSelectedRow(), 0);
+        String art = (String) tabla.getValueAt(tabla.getSelectedRow(), 3);
+        String alb = (String) tabla.getValueAt(tabla.getSelectedRow(), 4);
+        Object pun = tabla.getValueAt(tabla.getSelectedRow(), 1);
+        Object year = tabla.getValueAt(tabla.getSelectedRow(), 2);
+
+        //colocar los elementos capturados en los text fields
+        tf_modnombre.setText(nom);
+        tf_modartista.setText(art);
+        tf_modalbum.setText(alb);
+        sp_modpuntuacion.setValue((Integer)pun);
+        yc_date.setValue((Integer)year);
+    }//GEN-LAST:event_bt_modMouseClicked
 
     /**
      * @param args the command line arguments
@@ -464,6 +712,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton bt_crud;
     private javax.swing.JButton bt_eli;
     private javax.swing.JButton bt_mod;
+    private javax.swing.JButton bt_modSong;
     private javax.swing.JComboBox<String> cb_songs;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -472,8 +721,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -487,19 +743,27 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JDialog jd_canciones;
     private javax.swing.JDialog jd_crud;
+    private javax.swing.JDialog jd_modificar;
     private javax.swing.JDialog jd_playlist;
     private javax.swing.JMenuItem jmi_abrir;
     private javax.swing.JMenuItem jmi_guardar;
+    private javax.swing.JSpinner sp_modpuntuacion;
     private javax.swing.JSpinner sp_puntuacion;
     private javax.swing.JTextArea ta_main;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField tf_album;
     private javax.swing.JTextField tf_artista;
+    private javax.swing.JTextField tf_modalbum;
+    private javax.swing.JTextField tf_modartista;
+    private javax.swing.JTextField tf_modnombre;
     private javax.swing.JTextField tf_name;
     private javax.swing.JTextField tf_nombre;
     private com.toedter.calendar.JYearChooser yc_date;
+    private com.toedter.calendar.JYearChooser yc_moddate;
     // End of variables declaration//GEN-END:variables
-
+    
+    Playlists pl = new Playlists();
+    ArrayList<Canciones> a = new ArrayList();
     ArrayList<Canciones> songs = new ArrayList();
-    File fichero =null; 
+    File fichero; 
 }
